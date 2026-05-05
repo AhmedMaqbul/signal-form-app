@@ -1,59 +1,41 @@
-# SignalFormApp
+# Signal Form App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.9.
+Angular 21 sample app that builds a registration form with the latest Signal Forms API from `@angular/forms/signals`.
 
-## Development server
+## Form Implementation
 
-To start a local development server, run:
+The form lives in `src/app/form`.
+
+| File | Purpose |
+| --- | --- |
+| `form.ts` | Standalone component with the signal model, Signal Forms schema, submit action, derived password strength, and age input cleanup. |
+| `form.html` | Form UI using `[formRoot]`, `[formField]`, validation messages, role dropdown options, and live model preview. |
+| `form.scss` | Component styles for the form layout and preview panel. |
+| `registration-form.model.ts` | `RegistrationForm` interface and `initialRegistrationForm()` factory. |
+| `registration-role.enum.ts` | Role enum used by the form model and dropdown option values. |
+| `form.spec.ts` | Basic component creation test. |
+
+## Current Behavior
+
+- The form uses a writable signal as the single source of truth.
+- Validation is defined in the `form(...)` schema.
+- Age starts empty, allows numeric input up to three digits, and validates the accepted range as `18` to `80`.
+- Age range validation uses `validate(...)` instead of `min(...)` / `max(...)` so native number input arrows are not forced to start at `18`.
+- Role starts with `Select role`, is backed by `RegistrationRole`, and is required before submission.
+- Submission stores the submitted form value in a signal and shows a confirmation message.
+
+## Run Locally
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Open `http://localhost:4200/`.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+## Build
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Build verification is manual for this project.

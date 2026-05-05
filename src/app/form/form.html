@@ -1,0 +1,150 @@
+<section class="shell">
+  <div class="intro">
+    <p class="eyebrow">Angular 21 Signal Forms</p>
+    <h1>Create account</h1>
+    <p>
+      This form uses a signal model as the source of truth, schema validation, and signal-powered
+      submit state.
+    </p>
+  </div>
+
+  <form class="registration-form" [formRoot]="registrationForm">
+    <div class="field">
+      <label for="fullName">Full name</label>
+      <input
+        id="fullName"
+        type="text"
+        autocomplete="name"
+        [formField]="registrationForm.fullName"
+      />
+
+      @if (registrationForm.fullName().touched() && registrationForm.fullName().invalid()) {
+        <div class="errors" aria-live="polite">
+          @for (error of registrationForm.fullName().errors(); track error.kind) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="email">Email</label>
+      <input id="email" type="email" autocomplete="email" [formField]="registrationForm.email" />
+
+      @if (registrationForm.email().touched() && registrationForm.email().invalid()) {
+        <div class="errors" aria-live="polite">
+          @for (error of registrationForm.email().errors(); track error.kind) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="age">Age</label>
+      <input
+        id="age"
+        type="number"
+        inputmode="numeric"
+        [formField]="registrationForm.age"
+        (input)="limitAgeInput($event)"
+      />
+
+      @if (registrationForm.age().touched() && registrationForm.age().invalid()) {
+        <div class="errors" aria-live="polite">
+          @for (error of registrationForm.age().errors(); track error.kind) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <label for="role">Role</label>
+      <select id="role" [formField]="registrationForm.role">
+        <option value="">Select role</option>
+        @for (role of roleOptions; track role.value) {
+          <option [value]="role.value">{{ role.label }}</option>
+        }
+      </select>
+
+      @if (registrationForm.role().touched() && registrationForm.role().invalid()) {
+        <div class="errors" aria-live="polite">
+          @for (error of registrationForm.role().errors(); track error.kind) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <div class="field">
+      <div class="label-row">
+        <label for="password">Password</label>
+        <span>{{ passwordStrength() }}</span>
+      </div>
+      <input
+        id="password"
+        type="password"
+        autocomplete="new-password"
+        [formField]="registrationForm.password"
+      />
+
+      @if (registrationForm.password().touched() && registrationForm.password().invalid()) {
+        <div class="errors" aria-live="polite">
+          @for (error of registrationForm.password().errors(); track error.kind) {
+            <p>{{ error.message }}</p>
+          }
+        </div>
+      }
+    </div>
+
+    <label class="check">
+      <input type="checkbox" [formField]="registrationForm.newsletter" />
+      <span>Send product updates by email</span>
+    </label>
+
+    <div class="actions">
+      <button type="submit" [disabled]="registrationForm().submitting()">
+        @if (registrationForm().submitting()) {
+          Creating...
+        } @else {
+          Create account
+        }
+      </button>
+      <button type="button" class="secondary" (click)="resetForm()">Reset</button>
+    </div>
+  </form>
+
+  <aside class="preview">
+    <h2>Live signal model</h2>
+    <dl>
+      <div>
+        <dt>Name</dt>
+        <dd>{{ registrationModel().fullName || 'Empty' }}</dd>
+      </div>
+      <div>
+        <dt>Email</dt>
+        <dd>{{ registrationModel().email || 'Empty' }}</dd>
+      </div>
+      <div>
+        <dt>Age</dt>
+        <dd>{{ registrationModel().age ?? 'Empty' }}</dd>
+      </div>
+      <div>
+        <dt>Role</dt>
+        <dd>{{ registrationModel().role || 'Empty' }}</dd>
+      </div>
+      <div>
+        <dt>Updates</dt>
+        <dd>{{ registrationModel().newsletter ? 'Yes' : 'No' }}</dd>
+      </div>
+    </dl>
+
+    @if (submittedRegistration(); as submitted) {
+      <div class="success" role="status">
+        <strong>Submitted</strong>
+        <span>{{ submitted.fullName }} is registered as {{ submitted.role }}.</span>
+      </div>
+    }
+  </aside>
+</section>

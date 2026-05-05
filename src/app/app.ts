@@ -1,12 +1,10 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component } from '@angular/core';
+import { Form } from './form/form';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [Form],
   templateUrl: './app.html',
-  styleUrl: './app.scss'
+  styleUrl: './app.scss',
 })
-export class App {
-  protected readonly title = signal('signal-form-app');
-}
+export class App {}
