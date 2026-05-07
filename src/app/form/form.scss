@@ -114,6 +114,30 @@ select:focus {
   box-shadow: 0 0 0 3px rgba(66, 111, 83, 0.16);
 }
 
+.password-control {
+  position: relative;
+}
+
+.password-control input {
+  padding-right: 4.5rem;
+}
+
+.icon-button {
+  position: absolute;
+  top: 50%;
+  right: 0.35rem;
+  min-height: 2.15rem;
+  border-color: transparent;
+  background: transparent;
+  color: #426f53;
+  padding: 0 0.65rem;
+  transform: translateY(-50%);
+}
+
+.icon-button:hover {
+  background: rgba(66, 111, 83, 0.1);
+}
+
 .errors {
   display: grid;
   gap: 0.25rem;

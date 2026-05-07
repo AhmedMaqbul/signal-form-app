@@ -1,10 +1,10 @@
-import { RegistrationRole } from './registration-role.enum';
+import { RegistrationRoleValue } from './registration-role.enum';
 
 export interface RegistrationForm {
   fullName: string;
   email: string;
   age: number | null;
-  role: RegistrationRole | '';
+  role: RegistrationRoleValue | '';
   password: string;
   newsletter: boolean;
 }

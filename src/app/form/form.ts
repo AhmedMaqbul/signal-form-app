@@ -10,24 +10,21 @@ import {
   validate,
 } from '@angular/forms/signals';
 import { initialRegistrationForm, RegistrationForm } from './registration-form.model';
-import { RegistrationRole } from './registration-role.enum';
+import { registrationRoleOptions } from './registration-role.enum';
+import { RegistrationRoleLabelPipe } from './registration-role-label.pipe';
 
 @Component({
   selector: 'app-form',
-  imports: [FormField, FormRoot],
+  imports: [FormField, FormRoot, RegistrationRoleLabelPipe],
   templateUrl: './form.html',
   styleUrl: './form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Form {
-  protected readonly roleOptions = [
-    { label: 'Developer', value: RegistrationRole.Developer },
-    { label: 'Designer', value: RegistrationRole.Designer },
-    { label: 'Product manager', value: RegistrationRole.Product },
-    { label: 'Founder', value: RegistrationRole.Founder },
-  ];
+  protected readonly roleOptions = registrationRoleOptions;
 
   protected readonly registrationModel = signal<RegistrationForm>(initialRegistrationForm());
+  protected readonly showPassword = signal(false);
 
   protected readonly registrationForm = form(
     this.registrationModel,
@@ -83,6 +80,7 @@ export class Form {
   protected resetForm(): void {
     this.registrationModel.set(initialRegistrationForm());
     this.submittedRegistration.set(null);
+    this.showPassword.set(false);
   }
 
   protected limitAgeInput(event: Event): void {
@@ -97,5 +95,9 @@ export class Form {
       ...registration,
       age: value === '' ? null : Number(value),
     }));
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword.update((value) => !value);
   }
 }
