@@ -40,4 +40,4 @@ Open `http://localhost:4200/`.
 ng build
 ```
 
-Build verification is manual for this project.
+![My Image](image.png)
