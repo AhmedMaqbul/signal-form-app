@@ -23,7 +23,7 @@ The form lives in `src/app/form`.
 - Age starts empty, allows numeric input up to three digits, and validates the accepted range as `18` to `80`.
 - Age range validation uses `validate(...)` instead of `min(...)` / `max(...)` so native number input arrows are not forced to start at `18`.
 - Role starts with `Select role`, is backed by a numeric `RegistrationRole` enum, and uses explicit string option values for native select compatibility.
-- Password visibility can be toggled with the eye button without changing the form value.
+- Password visibility can be toggled with the Show/Hide button without changing the form value.
 - Submission stores the submitted form value in a signal and shows a confirmation message.
 
 ## Run Locally
